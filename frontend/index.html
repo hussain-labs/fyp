@@ -15,6 +15,13 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   </head>
   <body>
+    <script>
+      // Prevent flash of wrong theme — apply saved theme before first paint
+      (function() {
+        var t = localStorage.getItem('paychain-theme');
+        if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

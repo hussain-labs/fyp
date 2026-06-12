@@ -1,6 +1,6 @@
 const CallToAction = () => {
   return (
-    <section className="cta-section fade-in">
+    <section className="cta-section">
       <div className="container">
         <div className="cta-box glass-panel">
           <h2>Ready to transform your finances?</h2>

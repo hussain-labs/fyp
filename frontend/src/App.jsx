@@ -13,6 +13,9 @@ import Transfers from './pages/Transfers';
 import Cards from './pages/Cards';
 import Settings from './pages/Settings';
 import { ThemeProvider } from './context/ThemeContext';
+import PricingPage from './pages/PricingPage';
+import Chatbot from './components/Chatbot';
+import ThemeSwitcher from './components/ThemeSwitcher';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -24,7 +27,7 @@ const ScrollToTop = () => {
 
 const AnimationObserver = () => {
   const { pathname } = useLocation();
-  
+
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -50,7 +53,7 @@ const AnimationObserver = () => {
 
     return () => observer.disconnect();
   }, [pathname]);
-  
+
   return null;
 }
 
@@ -61,11 +64,12 @@ const MainLayout = () => {
   return (
     <>
       {!isDashboardLayout && <Navbar />}
-      
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/pricing" element={<PricingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -74,7 +78,10 @@ const MainLayout = () => {
         <Route path="/cards" element={<Cards />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
-      
+
+      <Chatbot />
+      <ThemeSwitcher />
+
       {!isDashboardLayout && <Footer />}
     </>
   );
@@ -86,7 +93,7 @@ function App() {
       <Router>
         <ScrollToTop />
         <AnimationObserver />
-        
+
         {/* Background Decor */}
         <div className="bg-shape shape-1"></div>
         <div className="bg-shape shape-2"></div>

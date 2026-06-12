@@ -2,7 +2,7 @@ const DashboardPreview = () => {
   return (
     <section className="dashboard-preview" id="how-it-works">
       <div className="container">
-        <div className="preview-wrapper glass-panel fade-in">
+        <div className="preview-wrapper glass-panel">
           <div className="preview-content">
             <h2>Everything you need, in one powerful app</h2>
             <ul className="benefit-list">

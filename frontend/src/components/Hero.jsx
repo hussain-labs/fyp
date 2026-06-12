@@ -1,11 +1,32 @@
-import heroImg from '../assets/hero.png';
+import { useEffect, useRef } from 'react';
 
 const Hero = () => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.35; // Set playback speed to ~55% for smooth, slow motion
+    }
+  }, []);
+
   return (
     <section className="hero">
+      {/* Background Video */}
+      <video
+        ref={videoRef}
+        className="hero-bg-video"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/crypto_bg1.mp4" type="video/mp4" />
+      </video>
+      <div className="hero-overlay"></div>
+
       <div className="container hero-container">
         <div className="hero-content">
-          <div className="badge">🚀 The #1 Payment Network</div>
+          {/* <div className="badge">🚀 The #1 Payment Network</div> */}
           <h1>Seamless Global <span>Transactions</span> Without Limits</h1>
           <p>Experience the next generation of digital finance. Send, receive, and manage your money worldwide with zero hidden fees and bank-grade security.</p>
           <div className="hero-btns">
@@ -24,32 +45,6 @@ const Hero = () => {
             <div className="stat-item">
               <h3>190+</h3>
               <p>Countries Supported</p>
-            </div>
-          </div>
-        </div>
-        <div className="hero-image">
-          <div className="image-wrapper glass-panel">
-            <img src={heroImg} alt="PayChain Global Network Illustration" />
-            
-            {/* Floating UI elements */}
-            <div className="floating-card transfer-card">
-              <div className="f-icon"><i className='bx bx-transfer'></i></div>
-              <div className="f-text">
-                <h4>Transfer Sent</h4>
-                <p>$2,500 to Muzamil</p>
-              </div>
-              <div className="f-amount success">Success</div>
-            </div>
-
-            <div className="floating-card balance-card">
-              <p>Total Balance</p>
-              <h3>$124,560.00</h3>
-              <div className="f-chart">
-                <span className="bar b1"></span>
-                <span className="bar b2"></span>
-                <span className="bar b3"></span>
-                <span className="bar b4"></span>
-              </div>
             </div>
           </div>
         </div>
