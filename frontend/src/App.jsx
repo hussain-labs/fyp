@@ -1,0 +1,100 @@
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import Statistics from './pages/Statistics';
+import Transfers from './pages/Transfers';
+import Cards from './pages/Cards';
+import Settings from './pages/Settings';
+import { ThemeProvider } from './context/ThemeContext';
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
+
+const AnimationObserver = () => {
+  const { pathname } = useLocation();
+  
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Give React time to render the new page
+    setTimeout(() => {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+      });
+    }, 100);
+
+    return () => observer.disconnect();
+  }, [pathname]);
+  
+  return null;
+}
+
+const MainLayout = () => {
+  const location = useLocation();
+  const isDashboardLayout = ['/dashboard', '/statistics', '/transfers', '/cards', '/settings'].includes(location.pathname);
+
+  return (
+    <>
+      {!isDashboardLayout && <Navbar />}
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/statistics" element={<Statistics />} />
+        <Route path="/transfers" element={<Transfers />} />
+        <Route path="/cards" element={<Cards />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
+      
+      {!isDashboardLayout && <Footer />}
+    </>
+  );
+};
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Router>
+        <ScrollToTop />
+        <AnimationObserver />
+        
+        {/* Background Decor */}
+        <div className="bg-shape shape-1"></div>
+        <div className="bg-shape shape-2"></div>
+
+        <MainLayout />
+      </Router>
+    </ThemeProvider>
+  );
+}
+
+export default App;
