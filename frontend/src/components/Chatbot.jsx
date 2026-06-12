@@ -185,9 +185,13 @@ const Chatbot = () => {
           <div className="chatbot-messages">
             {messages.map((msg, index) => (
               <div key={index} className={`message-bubble-wrapper ${msg.role}`}>
-                <div className="message-bubble">
-                  {msg.content}
-                </div>
+                <div className="message-bubble markdown-body" dangerouslySetInnerHTML={{
+                  __html: msg.content
+                    .replace(/### (.*?)(?:\n|$)/g, '<h3>$1</h3>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/(?:\n|^)- (.*)/g, '<br>• $1')
+                    .replace(/\n/g, '<br>')
+                }} />
               </div>
             ))}
             {isLoading && (
